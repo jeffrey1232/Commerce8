@@ -142,21 +142,21 @@
             <div class="lg:col-span-1">
                 <div class="glass-panel p-6 hover-scale">
                     <h2 class="text-xl font-bold mb-4 text-cyan-400">
-                        <i class="fas fa-chart-line mr-2"></i>ADMINISTRATOR OVERVIEW
+                        <i class="fas fa-chart-line mr-2"></i>Vue d'ensemble Administrateur
                     </h2>
-                    
+
                     <!-- Stats Cards -->
                     <div class="grid grid-cols-2 gap-4 mb-6">
                         <div class="glass-panel-dark p-4 text-center">
                             <div class="text-2xl font-bold text-green-400">85%</div>
-                            <div class="text-xs text-gray-300">Today</div>
+                            <div class="text-xs text-gray-300">Aujourd'hui</div>
                             <div class="w-full bg-gray-700 rounded-full h-2 mt-2">
                                 <div class="bg-green-400 h-2 rounded-full" style="width: 85%"></div>
                             </div>
                         </div>
                         <div class="glass-panel-dark p-4 text-center">
                             <div class="text-2xl font-bold text-red-400">5%</div>
-                            <div class="text-xs text-gray-300">New</div>
+                            <div class="text-xs text-gray-300">Nouveaux</div>
                             <div class="w-full bg-gray-700 rounded-full h-2 mt-2">
                                 <div class="bg-red-400 h-2 rounded-full" style="width: 5%"></div>
                             </div>
@@ -171,7 +171,7 @@
                     <!-- Overdue Packages -->
                     <div>
                         <h3 class="text-sm font-semibold mb-3 text-yellow-400">
-                            <i class="fas fa-exclamation-triangle mr-1"></i>Overdue Packages
+                            <i class="fas fa-exclamation-triangle mr-1"></i>Colis en retard
                         </h3>
                         <div class="space-y-2">
                             <div class="glass-panel-dark p-3 flex justify-between items-center">
@@ -180,7 +180,7 @@
                                     <div class="text-xs text-gray-400">25,000 FCFA</div>
                                 </div>
                                 <button class="px-3 py-1 bg-red-500 rounded text-xs hover:bg-red-600">
-                                    Resolve
+                                    Résoudre
                                 </button>
                             </div>
                             <div class="glass-panel-dark p-3 flex justify-between items-center">
@@ -189,7 +189,7 @@
                                     <div class="text-xs text-gray-400">15,000 FCFA</div>
                                 </div>
                                 <button class="px-3 py-1 bg-red-500 rounded text-xs hover:bg-red-600">
-                                    Resolve
+                                    Résoudre
                                 </button>
                             </div>
                         </div>
@@ -201,12 +201,12 @@
             <div class="lg:col-span-1">
                 <div class="glass-panel p-6 hover-scale">
                     <h2 class="text-xl font-bold mb-4 text-cyan-400">
-                        <i class="fas fa-store mr-2"></i>VENDOR PORTAL
+                        <i class="fas fa-store mr-2"></i>Portail Vendeur
                     </h2>
 
                     <!-- New Shipment Button -->
                     <button class="w-full py-3 bg-gradient-to-r from-green-400 to-green-600 rounded-lg font-bold mb-6 hover:from-green-500 hover:to-green-700 transition-all transform hover:scale-105">
-                        <i class="fas fa-plus-circle mr-2"></i>NEW SHIPMENT
+                        <i class="fas fa-plus-circle mr-2"></i>Nouvel Envoi
                     </button>
 
                     <!-- Status Flow -->
@@ -215,31 +215,31 @@
                             <div class="glass-panel-dark p-3 rounded-full">
                                 <div class="text-lg font-bold">12</div>
                             </div>
-                            <div class="text-xs mt-1">PENDING</div>
+                            <div class="text-xs mt-1">EN ATTENTE</div>
                         </div>
                         <div class="text-center">
                             <div class="glass-panel-dark p-3 rounded-full">
                                 <div class="text-lg font-bold">2</div>
                             </div>
-                            <div class="text-xs mt-1">AT RELAY</div>
+                            <div class="text-xs mt-1">AU POINT RELAIS</div>
                         </div>
                         <div class="text-center">
                             <div class="glass-panel-dark p-3 rounded-full">
                                 <div class="text-lg font-bold">8</div>
                             </div>
-                            <div class="text-xs mt-1">SOLD</div>
+                            <div class="text-xs mt-1">VENDUS</div>
                         </div>
                         <div class="text-center">
                             <div class="glass-panel-dark p-3 rounded-full">
                                 <div class="text-lg font-bold">1</div>
                             </div>
-                            <div class="text-xs mt-1">RETURN</div>
+                            <div class="text-xs mt-1">RETOURNÉS</div>
                         </div>
                     </div>
 
                     <!-- Wallet Balance -->
                     <div class="glass-panel-dark p-4">
-                        <h3 class="text-sm font-semibold mb-3">WALLET BALANCE</h3>
+                        <h3 class="text-sm font-semibold mb-3">Solde du Portefeuille</h3>
                         <div class="text-2xl font-bold text-green-400 mb-3">150,000 FCFA</div>
                         <div class="flex space-x-2">
                             <div class="flex-1 glass-panel p-2 text-center">
@@ -259,7 +259,7 @@
             <div class="lg:col-span-1">
                 <div class="glass-panel p-6 hover-scale">
                     <h2 class="text-xl font-bold mb-4 text-cyan-400">
-                        <i class="fas fa-user-check mr-2"></i>CLIENT VALIDATION
+                        <i class="fas fa-user-check mr-2"></i>Validation Client
                     </h2>
 
                     <!-- QR Code -->
@@ -271,24 +271,24 @@
 
                     <!-- Code Input -->
                     <div class="mb-4">
-                        <label class="block text-sm mb-2">ENTER UNIQUE CODE (CRU)</label>
-                        <input type="text" class="w-full p-3 glass-panel-dark rounded-lg text-white placeholder-gray-400" placeholder="Enter code...">
+                        <label class="block text-sm mb-2">Entrez le code unique (CRU)</label>
+                        <input type="text" class="w-full p-3 glass-panel-dark rounded-lg text-white placeholder-gray-400" placeholder="Entrez le code...">
                     </div>
 
                     <!-- Payment Options -->
                     <div class="grid grid-cols-2 gap-2 mb-4">
                         <button class="py-2 glass-panel-dark rounded-lg hover:bg-white hover:bg-opacity-20">
-                            <i class="fas fa-money-bill-wave mr-1"></i>PAY CASH
+                            <i class="fas fa-money-bill-wave mr-1"></i>Payer en espèces
                         </button>
                         <button class="py-2 glass-panel-dark rounded-lg hover:bg-white hover:bg-opacity-20">
-                            <i class="fas fa-mobile-alt mr-1"></i>MOBILE MONEY
+                            <i class="fas fa-mobile-alt mr-1"></i>Mobile Money
                         </button>
                     </div>
 
                     <!-- Item Details -->
                     <div class="glass-panel-dark p-3">
-                        <div class="text-sm font-semibold mb-1">YOUR PALACE: Warm Brute X</div>
-                        <div class="text-xs text-gray-300">Item: Blue Dress</div>
+                        <div class="text-sm font-semibold mb-1">VOTRE PLACE: Warm Brute X</div>
+                        <div class="text-xs text-gray-300">Article: Robe Bleue</div>
                         <div class="text-xs text-cyan-400 mt-1">ECM2024001</div>
                     </div>
                 </div>
@@ -298,14 +298,14 @@
             <div class="lg:col-span-2">
                 <div class="glass-panel p-6 hover-scale">
                     <h2 class="text-xl font-bold mb-4 text-cyan-400">
-                        <i class="fas fa-money-bill-transfer mr-2"></i>PAYMENT & DISBURSEMENT
+                        <i class="fas fa-money-bill-transfer mr-2"></i>Paiements & Reversements
                     </h2>
 
                     <!-- Alert -->
                     <div class="glass-panel-dark p-3 mb-4 border border-red-500">
                         <div class="flex items-center">
                             <i class="fas fa-exclamation-circle text-red-400 mr-2"></i>
-                            <span class="text-red-400">ACTION REQUIRED: 1 payment overdue > 18h</span>
+                            <span class="text-red-400">ACTION REQUISE: 1 paiement en retard > 18h</span>
                         </div>
                     </div>
 
@@ -314,11 +314,11 @@
                         <table class="w-full">
                             <thead>
                                 <tr class="text-left text-sm text-gray-300">
-                                    <th class="pb-3">Vendor</th>
-                                    <th class="pb-3">Sale Amt.</th>
+                                    <th class="pb-3">Vendeur</th>
+                                    <th class="pb-3">Montant vente</th>
                                     <th class="pb-3">Commission</th>
-                                    <th class="pb-3">Net Payout</th>
-                                    <th class="pb-3">Status</th>
+                                    <th class="pb-3">Net à payer</th>
+                                    <th class="pb-3">Statut</th>
                                 </tr>
                             </thead>
                             <tbody class="text-sm">
@@ -328,7 +328,7 @@
                                     <td class="py-3">2,250 FCFA</td>
                                     <td class="py-3">42,750 FCFA</td>
                                     <td class="py-3">
-                                        <span class="px-2 py-1 bg-green-500 rounded text-xs">Sent</span>
+                                        <span class="px-2 py-1 bg-green-500 rounded text-xs">Envoyé</span>
                                     </td>
                                 </tr>
                                 <tr class="border-b border-gray-600">
@@ -337,7 +337,7 @@
                                     <td class="py-3">1,600 FCFA</td>
                                     <td class="py-3">30,400 FCFA</td>
                                     <td class="py-3">
-                                        <span class="px-2 py-1 bg-yellow-500 rounded text-xs">Pending</span>
+                                        <span class="px-2 py-1 bg-yellow-500 rounded text-xs">En attente</span>
                                     </td>
                                 </tr>
                                 <tr class="border-b border-gray-600">
@@ -346,7 +346,7 @@
                                     <td class="py-3">1,400 FCFA</td>
                                     <td class="py-3">26,600 FCFA</td>
                                     <td class="py-3">
-                                        <span class="px-2 py-1 bg-green-500 rounded text-xs">Sent</span>
+                                        <span class="px-2 py-1 bg-green-500 rounded text-xs">Envoyé</span>
                                     </td>
                                 </tr>
                             </tbody>
@@ -359,15 +359,15 @@
             <div class="lg:col-span-1">
                 <div class="glass-panel p-6 hover-scale">
                     <h2 class="text-xl font-bold mb-4 text-cyan-400">
-                        <i class="fas fa-door-open mr-2"></i>FITTING ROOM MANAGEMENT
+                        <i class="fas fa-door-open mr-2"></i>Gestion des Cabines d'Essai
                     </h2>
 
                     <!-- Cabin Status -->
                     <div class="glass-panel-dark p-4 mb-4">
                         <div class="flex items-center justify-between">
                             <div>
-                                <div class="text-lg font-bold">CABIN [FREE]</div>
-                                <div class="text-sm text-gray-300">Available</div>
+                                <div class="text-lg font-bold">CABINE [LIBRE]</div>
+                                <div class="text-sm text-gray-300">Disponible</div>
                             </div>
                             <div class="status-indicator status-online"></div>
                         </div>
@@ -375,16 +375,16 @@
 
                     <!-- Check-in Log -->
                     <div class="mb-4">
-                        <h3 class="text-sm font-semibold mb-3">CHECK IN LOG</h3>
+                        <h3 class="text-sm font-semibold mb-3">Journal d'Entrée</h3>
                         <div class="space-y-2">
                             <div class="glass-panel-dark p-3">
                                 <div class="text-sm">Client: Anmoa X</div>
-                                <div class="text-xs text-gray-300">Guarantie: ID Card</div>
+                                <div class="text-xs text-gray-300">Garantie: Carte d'identité</div>
                                 <div class="text-xs text-cyan-400">14:30</div>
                             </div>
                             <div class="glass-panel-dark p-3">
                                 <div class="text-sm">Client: Marie S</div>
-                                <div class="text-xs text-gray-300">Guarantie: Phone</div>
+                                <div class="text-xs text-gray-300">Garantie: Téléphone</div>
                                 <div class="text-xs text-cyan-400">13:45</div>
                             </div>
                         </div>
@@ -393,7 +393,7 @@
                     <!-- Today's Trials -->
                     <div class="glass-panel-dark p-4 text-center">
                         <div class="text-2xl font-bold text-cyan-400">15</div>
-                        <div class="text-sm text-gray-300">TODAY'S TRIALS</div>
+                        <div class="text-sm text-gray-300">Essais d'Aujourd'hui</div>
                     </div>
                 </div>
             </div>
@@ -402,27 +402,27 @@
             <div class="lg:col-span-1">
                 <div class="glass-panel p-6 hover-scale">
                     <h2 class="text-xl font-bold mb-4 text-cyan-400">
-                        <i class="fas fa-camera mr-2"></i>STUDIO & CREATIVE HUB
+                        <i class="fas fa-camera mr-2"></i>Studio & Hub Créatif
                     </h2>
 
                     <!-- Shooting Slots -->
                     <div class="mb-4">
-                        <h3 class="text-sm font-semibold mb-3">SHOOTING SLOTS</h3>
+                        <h3 class="text-sm font-semibold mb-3">Créneaux de Shooting</h3>
                         <div class="space-y-2">
                             <div>
-                                <div class="text-xs mb-1">SMOOTHING (0)</div>
+                                <div class="text-xs mb-1">Lissage (0)</div>
                                 <div class="w-full bg-gray-700 rounded-full h-2">
                                     <div class="bg-blue-400 h-2 rounded-full" style="width: 0%"></div>
                                 </div>
                             </div>
                             <div>
-                                <div class="text-xs mb-1">MCHITING</div>
+                                <div class="text-xs mb-1">Maquillage</div>
                                 <div class="w-full bg-gray-700 rounded-full h-2">
                                     <div class="bg-yellow-400 h-2 rounded-full" style="width: 60%"></div>
                                 </div>
                             </div>
                             <div>
-                                <div class="text-xs mb-1">READY (1)</div>
+                                <div class="text-xs mb-1">Prêt (1)</div>
                                 <div class="w-full bg-gray-700 rounded-full h-2">
                                     <div class="bg-green-400 h-2 rounded-full" style="width: 100%"></div>
                                 </div>
@@ -432,7 +432,7 @@
 
                     <!-- Production Tracker -->
                     <div>
-                        <h3 class="text-sm font-semibold mb-3">PRODUCTION TRACKER</h3>
+                        <h3 class="text-sm font-semibold mb-3">Suivi de Production</h3>
                         <div class="grid grid-cols-4 gap-2">
                             <div class="glass-panel-dark p-2 aspect-square flex items-center justify-center">
                                 <img src="https://picsum.photos/seed/dress1/50/50.jpg" alt="Product" class="w-full h-full object-cover rounded">
@@ -473,7 +473,7 @@
             data: {
                 labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
                 datasets: [{
-                    label: 'Deliveries',
+                    label: 'Livraisons',
                     data: [12, 19, 15, 25, 22, 30, 28],
                     backgroundColor: 'rgba(0, 212, 255, 0.5)',
                     borderColor: 'rgba(0, 212, 255, 1)',
@@ -531,7 +531,7 @@
                     const ripple = document.createElement('span');
                     ripple.classList.add('ripple');
                     this.appendChild(ripple);
-                    
+
                     setTimeout(() => ripple.remove(), 600);
                 });
             });
