@@ -1,0 +1,15 @@
+services:
+  # A Docker web service
+  - type: web
+    name: laravel-ecom
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    autoDeploy: true
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: LOG_LEVEL
+        value: error
