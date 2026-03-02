@@ -6,22 +6,22 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasFactory, Notifiable, HasRoles, SoftDeletes;
+    use HasFactory, Notifiable, SoftDeletes;
 
     protected $fillable = [
         'name',
         'email',
         'password',
+        'role',
         'phone',
+        'address',
+        'status',
+        'last_login',
         'email_verified_at',
-        'is_active',
-        'last_login_at',
-        'last_login_ip',
     ];
 
     protected $hidden = [
@@ -31,8 +31,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'last_login_at' => 'datetime',
-        'is_active' => 'boolean',
+        'last_login' => 'datetime',
         'password' => 'hashed',
     ];
 
@@ -42,53 +41,70 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasOne(Vendor::class);
     }
 
-    public function managedPointRelais()
+    public function packages()
     {
-        return $this->hasOne(PointRelais::class, 'staff_user_id');
+        return $this->hasManyThrough(Package::class, Vendor::class);
     }
 
-    public function colisStatusLogs()
+    public function payments()
     {
-        return $this->hasMany(ColisStatusLog::class, 'changed_by_user_id');
-    }
-
-    public function processedReversements()
-    {
-        return $this->hasMany(Reversement::class, 'processed_by');
-    }
-
-    public function essais()
-    {
-        return $this->hasMany(Essai::class, 'staff_user_id');
-    }
-
-    public function logs()
-    {
-        return $this->hasMany(LogSysteme::class);
-    }
-
-    public function notifications()
-    {
-        return $this->morphMany(Notification::class, 'notifiable');
+        return $this->hasManyThrough(Payment::class, Vendor::class);
     }
 
     // Scopes
     public function scopeActive($query)
     {
-        return $query->where('is_active', true);
+        return $query->where('status', 'active');
+    }
+
+    public function scopeAdmins($query)
+    {
+        return $query->where('role', 'admin');
     }
 
     public function scopeVendors($query)
     {
-        return $query->whereHas('roles', function ($q) {
-            $q->where('name', 'vendor');
-        });
+        return $query->where('role', 'vendor');
+    }
+
+    public function scopeClients($query)
+    {
+        return $query->where('role', 'client');
+    }
+
+    public function scopeCommunityManagers($query)
+    {
+        return $query->where('role', 'community_manager');
     }
 
     public function scopeStaff($query)
     {
-        return $query->whereHas('roles', function ($q) {
-            $q->whereIn('name', ['staff', 'admin']);
-        });
+        return $query->where('role', 'staff');
+    }
+
+    // Methods
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
+
+    public function isVendor(): bool
+    {
+        return $this->role === 'vendor';
+    }
+
+    public function isClient(): bool
+    {
+        return $this->role === 'client';
+    }
+
+    public function isCommunityManager(): bool
+    {
+        return $this->role === 'community_manager';
+    }
+
+    public function isStaff(): bool
+    {
+        return $this->role === 'staff';
     }
 }

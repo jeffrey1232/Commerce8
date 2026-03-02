@@ -1,71 +1,74 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\ColisController;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\VendorController;
-use App\Http\Controllers\CommunityManagerController;
-use App\Http\Controllers\ClientController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\MultiRoleController;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Vendor\VendorController;
+use App\Http\Controllers\Client\ClientController;
+use App\Http\Controllers\CommunityManager\StudioController;
 
 // Page d'accueil redirigée vers la connexion multi-rôles
 Route::get('/', function () {
     return redirect('/login-multi-role');
 });
 
-// Page de connexion multi-rôles
-Route::get('/login-multi-role', function () {
-    return view('auth.login-multi-role');
+// Authentification multi-rôles
+Route::get('/login-multi-role', [MultiRoleController::class, 'showLoginForm'])->name('login.multi');
+Route::post('/login-multi-role', [MultiRoleController::class, 'login']);
+
+// Routes Admin
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+    Route::post('/approve-disbursement/{paymentId}', [AdminController::class, 'approveDisbursement'])->name('approve.disbursement');
+    Route::post('/generate-report', [AdminController::class, 'generateReport'])->name('generate.report');
+    Route::get('/vendors', [AdminController::class, 'getVendors'])->name('vendors.index');
+    Route::put('/vendors/{vendorId}/status', [AdminController::class, 'updateVendorStatus'])->name('vendors.update.status');
+    Route::get('/packages', [AdminController::class, 'getPackages'])->name('packages.index');
+    Route::put('/packages/{packageId}/status', [AdminController::class, 'updatePackageStatus'])->name('packages.update.status');
+    Route::get('/payments', [AdminController::class, 'getPayments'])->name('payments.index');
 });
 
-// Routes des interfaces frontend avec vrais controllers
-Route::get('/admin-dashboard', [AdminController::class, 'index']);
-Route::get('/vendor-portal', [VendorController::class, 'index'])->middleware('auth')->name('vendor.portal');
-Route::get('/community-manager', [CommunityManagerController::class, 'index'])->middleware('auth');
-Route::get('/client-validation', [ClientController::class, 'index']);
-
-// Routes API pour les actions frontend
-Route::post('/validate-code', [ClientController::class, 'validateCode']);
-Route::post('/process-payment', [ClientController::class, 'processPayment']);
-Route::post('/download-receipt/{receiptNumber}', [ClientController::class, 'downloadReceipt']);
-Route::get('/check-fitting/{colisUuid}', [ClientController::class, 'checkFittingStatus']);
-
-Route::post('/vendor/create-shipment', [VendorController::class, 'store'])->middleware('auth');
-Route::get('/vendor/create', [VendorController::class, 'create'])->middleware('auth');
-Route::get('/vendor/{uuid}', [VendorController::class, 'show'])->middleware('auth');
-
-Route::post('/admin/approve-disbursement/{vendorId}', [AdminController::class, 'approveDisbursement'])->middleware('auth');
-Route::get('/admin/stats', [AdminController::class, 'getStats'])->middleware('auth');
-
-Route::post('/community/create-shooting', [CommunityManagerController::class, 'createShooting'])->middleware('auth');
-Route::post('/community/update-production', [CommunityManagerController::class, 'updateProductionStatus'])->middleware('auth');
-Route::get('/community/metrics', [CommunityManagerController::class, 'getPerformanceMetrics'])->middleware('auth');
-
-// Routes Laravel existantes (avec authentification)
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-    // API Routes pour le dashboard
-    Route::get('/api/overdue-colis', [DashboardController::class, 'getOverdueColis']);
-    Route::get('/api/vendor-stats', [DashboardController::class, 'getVendorStats']);
-    Route::get('/api/payment-stats', [DashboardController::class, 'getPaymentStats']);
-    Route::get('/api/cabin-stats', [DashboardController::class, 'getCabinStats']);
+// Routes Vendeur
+Route::middleware(['auth', 'role:vendor'])->prefix('vendor')->name('vendor.')->group(function () {
+    Route::get('/dashboard', [VendorController::class, 'dashboard'])->name('dashboard');
+    Route::post('/create-shipment', [VendorController::class, 'createShipment'])->name('create.shipment');
+    Route::get('/wallet', [VendorController::class, 'wallet'])->name('wallet');
+    Route::get('/packages', [VendorController::class, 'packages'])->name('packages');
 });
 
-// Routes pour les colis
-Route::resource('colis', ColisController::class)->middleware(['auth', 'verified']);
-Route::post('/colis/{uuid}/deposit', [ColisController::class, 'deposit'])->middleware('auth');
-Route::post('/colis/{uuid}/withdraw', [ColisController::class, 'withdraw'])->middleware('auth');
-Route::post('/colis/{uuid}/status', [ColisController::class, 'updateStatus'])->middleware('auth');
-Route::get('/colis/{uuid}/payment', [ColisController::class, 'payment'])->middleware('auth');
-Route::post('/colis/{uuid}/payment', [ColisController::class, 'processPayment'])->middleware('auth');
+// Routes Client
+Route::middleware(['auth', 'role:client'])->prefix('client')->name('client.')->group(function () {
+    Route::get('/validation', [ClientController::class, 'validation'])->name('validation');
+    Route::post('/validate-code', [ClientController::class, 'validateCode'])->name('validate.code');
+    Route::post('/process-payment', [ClientController::class, 'processPayment'])->name('process.payment');
+});
 
-Route::resource('products', ProductController::class);
+// Routes Community Manager
+Route::middleware(['auth', 'role:community_manager'])->prefix('studio')->name('studio.')->group(function () {
+    Route::get('/dashboard', [StudioController::class, 'dashboard'])->name('dashboard');
+    Route::get('/fitting-rooms', [StudioController::class, 'fittingRooms'])->name('fitting.rooms');
+    Route::get('/shooting-slots', [StudioController::class, 'shootingSlots'])->name('shooting.slots');
+});
+
+// Routes API
+Route::middleware(['auth'])->prefix('api')->name('api.')->group(function () {
+    Route::get('/packages/status/{trackingCode}', [App\Http\Controllers\API\PackageAPIController::class, 'getStatus']);
+    Route::post('/payments/verify', [App\Http\Controllers\API\PaymentAPIController::class, 'verify']);
+    Route::get('/vendors/stats', [App\Http\Controllers\API\VendorAPIController::class, 'stats']);
+});
+
+// Routes statiques pour les vues existantes
+Route::get('/admin-dashboard', function () {
+    return view('layouts.glassmorphism');
+});
+Route::get('/vendor-portal', function () {
+    return view('vendor.portal');
+});
+Route::get('/community-manager', function () {
+    return view('community.manager');
+});
+Route::get('/client-validation', function () {
+    return view('client.validation');
+});
 
 require __DIR__.'/auth.php';

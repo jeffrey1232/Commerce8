@@ -123,7 +123,7 @@
                     <span class="text-green-400 text-sm">+12%</span>
                 </div>
                 <div class="text-2xl font-bold text-white">{{ $stats['total_colis'] ?? 0 }}</div>
-                <div class="text-sm text-gray-300">Total Colis</div>
+                <div class="text-sm text-gray-300">Total des Colis</div>
             </div>
 
             <div class="glass-panel-dark p-6 hover-scale">

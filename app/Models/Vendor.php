@@ -5,35 +5,29 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Vendor extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'uuid',
         'user_id',
-        'business_name',
-        'contact_phone',
-        'contact_email',
-        'address',
-        'id_card_number',
-        'id_card_photo',
-        'status',
+        'store_name',
+        'store_address',
+        'store_phone',
+        'business_license',
         'commission_rate',
-        'balance',
-        'business_documents',
-        'approved_at',
-        'approved_by',
-        'rejection_reason',
+        'rating',
+        'total_packages',
+        'total_revenue',
+        'status',
     ];
 
     protected $casts = [
-        'approved_at' => 'datetime',
         'commission_rate' => 'decimal:2',
-        'balance' => 'decimal:2',
-        'business_documents' => 'array',
+        'rating' => 'decimal:2',
+        'total_packages' => 'integer',
+        'total_revenue' => 'decimal:2',
     ];
 
     // Relations
@@ -42,46 +36,61 @@ class Vendor extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function approvedBy()
+    public function packages()
     {
-        return $this->belongsTo(User::class, 'approved_by');
+        return $this->hasMany(Package::class);
     }
 
-    public function colis(): HasMany
+    public function payments()
     {
-        return $this->hasMany(Colis::class);
+        return $this->hasMany(Payment::class);
     }
 
-    public function reversements(): HasMany
+    public function wallet()
     {
-        return $this->hasMany(Reversement::class);
+        return $this->hasOne(Wallet::class);
+    }
+
+    public function studioSessions()
+    {
+        return $this->hasMany(StudioSession::class);
     }
 
     // Scopes
     public function scopeActive($query)
     {
-        return $query->where('status', 'approved');
+        return $query->where('status', 'active');
     }
 
-    public function scopePending($query)
+    public function scopeInactive($query)
     {
-        return $query->where('status', 'pending');
+        return $query->where('status', 'inactive');
     }
 
-    public function scopeByBalance($query, $minBalance = 0)
+    public function scopeSuspended($query)
     {
-        return $query->where('balance', '>=', $minBalance);
+        return $query->where('status', 'suspended');
+    }
+
+    public function scopeByRating($query, $minRating = 0)
+    {
+        return $query->where('rating', '>=', $minRating);
     }
 
     // Methods
-    public function isApproved(): bool
+    public function isActive(): bool
     {
-        return $this->status === 'approved';
+        return $this->status === 'active';
     }
 
-    public function canRequestReversement(): bool
+    public function isInactive(): bool
     {
-        return $this->isApproved() && $this->balance > 0;
+        return $this->status === 'inactive';
+    }
+
+    public function isSuspended(): bool
+    {
+        return $this->status === 'suspended';
     }
 
     public function calculateCommission(float $amount): float
@@ -89,9 +98,25 @@ class Vendor extends Model
         return $amount * ($this->commission_rate / 100);
     }
 
-    public function updateBalance(float $amount): void
+    public function calculateNetAmount(float $amount): float
     {
-        $this->balance += $amount;
+        return $amount - $this->calculateCommission($amount);
+    }
+
+    public function updateStats(): void
+    {
+        $this->total_packages = $this->packages()->count();
+        $this->total_revenue = $this->payments()->where('payment_status', 'completed')->sum('net_amount');
         $this->save();
+    }
+
+    public function getWalletBalance(): float
+    {
+        return $this->wallet ? $this->wallet->balance : 0;
+    }
+
+    public function getPendingBalance(): float
+    {
+        return $this->wallet ? $this->wallet->pending_balance : 0;
     }
 }
